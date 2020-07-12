@@ -1,0 +1,35 @@
+{% extends "cds/base/base.html" %}
+{% load static %}
+
+
+
+{% block content %}
+
+<p class="mt-2">Справочник подразделений</p>
+
+<table class="table table-striped">
+  <thead class="thead-dark">
+    <tr>
+      <th scope="col">Название</th>
+      <th scope="col">Полное наименование</th>
+      <th scope="col">Предприятие</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      {% if company_units %}
+        {% for c in company_units %}
+          <td>{{ c.name }}</td>
+          <td>{{ c.full_name }}</td>
+          <td>{{ c.company }}</td>
+        {% endfor %}
+      {% endif %}
+    </tr>
+  </tbody>
+</table>
+
+<a class="btn btn-primary float-right" href="#" role="button">Добавить подразделение</a>
+
+
+
+{% endblock %}

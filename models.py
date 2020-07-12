@@ -27,7 +27,7 @@ class Company(models.Model):
     name = models.CharField(max_length=200, verbose_name="Компания", null=False, blank=False)
     address = models.CharField(max_length=1000, verbose_name="Адрес", null=False, blank=False)
     email = models.EmailField(max_length=250, verbose_name="Электронная почта", null=True, blank=True)
-    telephone = models.IntegerField(max_length=15, verbose_name='Телефон')
+    telephone = models.IntegerField(verbose_name='Телефон')
 
     class Meta:
         verbose_name = "О предприятии"
