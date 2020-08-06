@@ -34,7 +34,24 @@
 {% csrf_token %}
     <div class="border mb-4 mt-2 rounded border-secondary" id="feedback">
         <div class="mt-2 ml-4 mb-3">
-            <p>{{ form }}</p>
+            <div>
+                <p>{{ form.company.label }}</p>
+            </div>
+            <div>
+                <p>{{ form.company }}</p>
+            </div>
+            <div>
+                <p>{{ form.name.label }}</p>
+            </div>
+            <div>
+                <p>{{ form.name }}</p>
+            </div>
+            <div>
+                <p>{{ form.full_name.label }}</p>
+            </div>
+            <div>
+                <p>{{ form.full_name }}</p>
+            </div>
             <div>
                 <input type="submit" value="Добавить">
             </div>

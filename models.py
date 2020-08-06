@@ -39,13 +39,13 @@ class Company(models.Model):
 class CompanyUnit(models.Model):
     company = models.ForeignKey(Company, on_delete=models.CASCADE, verbose_name="Предприятие")
     name = models.CharField(max_length=250, verbose_name='Название подразделения', null=False, blank=False)
-    full_name = models.TextField(max_length=1000, null=True, blank=True)
+    full_name = models.TextField(max_length=1000, null=True, blank=True, verbose_name='Полное название подразделения')
 
     class Meta:
         verbose_name = "Название подразделения"
 
-        def __str__(self):
-            return self.name
+    def __str__(self):
+        return self.name
 
 
 class Sex(models.Model):
@@ -54,8 +54,8 @@ class Sex(models.Model):
     class Meta:
         verbose_name = "пол"
 
-        def __str__(self):
-            return self.name
+    def __str__(self):
+        return self.name
 
 
 class Position(models.Model):
@@ -64,8 +64,8 @@ class Position(models.Model):
     class Meta:
         verbose_name = "должность"
 
-        def __str__(self):
-            return self.name
+    def __str__(self):
+        return self.name
 
 
 class Worker(models.Model):
@@ -80,6 +80,6 @@ class Worker(models.Model):
     class Meta:
         verbose_name = "сотрудники"
 
-        def __str__(self):
-            return self.name_surname
+    def __str__(self):
+        return self.name_surname
 
