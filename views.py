@@ -1,6 +1,8 @@
 from django.shortcuts import render
 from .models import Company, CompanyUnit, Transport, Graphic, Worker
 from .forms import CompanyForm
+from django.views.generic import DeleteView, CreateView, ListView
+from django.urls import reverse_lazy
 
 
 def index(requests):
@@ -20,35 +22,49 @@ def graphic_index(request):
     template = 'cds/graphic.html'
     return render(request, template_name=template, context=context)
 
+class CompanyIndex(ListView):
+    template_name = 'cds/company.html'
+    context_object_name = 'company'
 
-def company(request):
-    company = Company.objects.all()
-    context = {'company': company}
-    return render(request, 'cds/company.html', context)
-
-
-def add_company(request):
-    company = Company.objects.all()
-    if request.method == 'POST':
-        form = CompanyForm(request.POST)
-        if form.is_valid():
-            form.save()
-            return render(request, 'cds/done.html')
-        context = {'form': form}
-        return render(request, 'cds/add_company.html', context)
-    elif request.method == 'DELETE':
-        company = Company.objects.get(id=id)
-        company.delete()
-        context = {'company': company}
-        return render(request, 'cds/add_company.html', context)
-    else:
-        form = CompanyForm()
-        context = {'form': form, 'company': company}
-        return render(request, 'cds/add_company.html', context)
+    def get_queryset(self):
+        return Company.objects.all()
 
 
-def company_units(request):
-    company_unit = CompanyUnit.objects.all()
-    context = {'company_units': company_unit}
-    template = 'cds/companyunit.html'
-    return render(request, template, context)
+class CompanyCreate(CreateView, ListView):
+    model = Company
+    success_url = reverse_lazy('company')
+    fields = ['name', 'address', 'email', 'telephone']
+    template_name_suffix = '_add'
+    context_object_name = 'company'
+
+    def get_queryset(self):
+        return Company.objects.all()
+
+
+class DelCompany(DeleteView):
+    model = Company
+    success_url = reverse_lazy('company')
+
+
+class CompanyUnitsIndex(ListView):
+    template_name = 'cds/companyunit.html'
+    context_object_name = 'company_units'
+
+    def get_queryset(self):
+        return CompanyUnit.objects.all()
+
+
+class CompanyUnitCreate(CreateView):
+    model = CompanyUnit
+    success_url = reverse_lazy('company_units')
+    fields = ['company', 'name', 'full_name']
+    template_name_suffix = '_add'
+    context_object_name = 'company_units'
+
+    def get_queryset(self):
+        return CompanyUnit.objects.all()
+
+
+class DelCompanyUnit(DeleteView):
+    model = CompanyUnit
+    success_url = reverse_lazy('company_units')

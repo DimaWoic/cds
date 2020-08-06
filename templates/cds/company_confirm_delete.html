@@ -1,0 +1,12 @@
+{% extends "cds/base/base.html" %}
+{% load static %}
+
+{% block content %}
+
+<p>Удалить {{company.name}}</p>
+
+<form method="post">{% csrf_token %}
+            <input type="submit" value="Удалить">
+        </form>
+
+{% endblock %}

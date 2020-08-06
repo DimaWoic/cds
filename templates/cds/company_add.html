@@ -23,7 +23,7 @@
         <td>{{ c.address }}</td>
         <td>{{ c.email }}</td>
         <td>{{ c.telephone }}</td>
-        <td>{{ c.telephone }}</td>
+        <td><a class="btn btn-primary float-right" href="{% url 'del_company' c.pk %}" role="button">Удалить</a></td>
     </tr>
   {% endfor %}
       {% endif %}
