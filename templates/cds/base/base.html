@@ -28,7 +28,7 @@
         </button>
         <div class="dropdown-menu">
             <a class="dropdown-item" href="{% url 'company' %}">О предприятии</a>
-            <a class="dropdown-item" href="{% url 'company_units' %}">Подразделения(службы) входящие в предприятия</a>
+            <a class="dropdown-item" href="{% url 'company_units' %}">Подразделения(службы) входящие в предприятие</a>
             <a class="dropdown-item" href="{% url 'worker_index' %}">Сотрудники</a>
         </div>
 
@@ -39,8 +39,8 @@
                 Классификаторы
         </button>
         <div class="dropdown-menu">
-            <a class="dropdown-item" href="#">Виды транспорта</a>
-            <a class="dropdown-item" href="#">Виды графиков</a>
+            <a class="dropdown-item" href="{% url 'transport' %}">Виды транспорта</a>
+            <a class="dropdown-item" href="{% url 'graphic' %}">Виды графиков</a>
             <a class="dropdown-item" href="{% url 'positions' %}">Профессии(должности) работников </a>
         </div>
 

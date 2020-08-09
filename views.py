@@ -1,6 +1,5 @@
-from django.shortcuts import render
+from django.shortcuts import render, render_to_response
 from .models import Company, CompanyUnit, Transport, Graphic, Worker, Position
-from .forms import CompanyForm
 from django.views.generic import DeleteView, CreateView, ListView
 from django.urls import reverse_lazy
 
@@ -9,18 +8,58 @@ def index(requests):
     return render(requests, 'cds/base/base.html')
 
 
-def transport_index(request):
-    transport = Transport.objects.all()
-    context = {'transport': transport}
-    template = 'cds/transport.html'
-    return render(request, template_name=template, context=context)
+class TransportIndex(ListView):
+    template_name = 'cds/transport.html'
+    context_object_name = 'transport'
+
+    def get_queryset(self):
+        return Transport.objects.all()
 
 
-def graphic_index(request):
-    graphic = Graphic.objects.all()
-    context = {'graphic': graphic}
-    template = 'cds/graphic.html'
-    return render(request, template_name=template, context=context)
+class EditTransport(CreateView, ListView):
+    model = Transport
+    success_url = reverse_lazy('transport')
+    fields = ['transport']
+    template_name_suffix = '_add'
+    context_object_name = 'transport'
+
+    def get_queryset(self):
+        return Transport.objects.all()
+
+    def form_invalid(self, form):
+        return render_to_response('cds/exists.html')
+
+
+class DelTransport(DeleteView):
+    model = Transport
+    success_url = reverse_lazy('transport')
+
+
+class GraphicIndex(ListView):
+    template_name = 'cds/graphic.html'
+    context_object_name = 'graphic'
+
+    def get_queryset(self):
+        return Graphic.objects.all()
+
+
+class CreateGraphic(CreateView, ListView):
+    model = Graphic
+    success_url = reverse_lazy('graphic')
+    fields = ['graphic']
+    template_name_suffix = '_add'
+    context_object_name = 'graphic'
+
+    def get_queryset(self):
+        return Graphic.objects.all()
+
+    def form_invalid(self, form):
+        return render_to_response('cds/exists.html')
+
+
+class DelGraphic(DeleteView):
+    model = Graphic
+    success_url = reverse_lazy('graphic')
 
 
 class CompanyIndex(ListView):
@@ -116,3 +155,9 @@ class WorkerCreate(CreateView, ListView):
 
     def get_queryset(self):
         return Worker.objects.all()
+
+
+class DelWorker(DeleteView):
+    model = Worker
+    success_url = reverse_lazy('worker_index')
+    context_object_name = 'worker'

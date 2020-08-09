@@ -19,16 +19,16 @@
     </tr>
   </thead>
   <tbody>
-  {% if position %}
+  {% if worker %}
         {% for w in worker %}
     <tr>
-        <td>{{ p.name_surname }}</td>
-        <td>{{ p.sex }}</td>
-        <td>{{ p.birthday }}</td>
-        <td>{{ p.working_place }}</td>
-        <td>{{ p.position }}</td>
-        <td>{{ p.address }}</td>
-        <td>{{ p.telephone }}</td>
+        <td>{{ w.name_surname }}</td>
+        <td>{{ w.sex }}</td>
+        <td>{{ w.birthday }}</td>
+        <td>{{ w.working_place }}</td>
+        <td>{{ w.position }}</td>
+        <td>{{ w.address }}</td>
+        <td>{{ w.telephone }}</td>
     </tr>
   {% endfor %}
       {% endif %}

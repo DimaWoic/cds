@@ -1,0 +1,49 @@
+{% extends "cds/base/base.html" %}
+{% load static %}
+
+
+{% block content %}
+
+<p class="mt-2">Виды транспорта</p>
+
+<table class="table table-striped table-bordered">
+  <thead class="thead-dark">
+    <tr>
+      <th scope="col">Транспорт</th>
+      <th scope="col">Удалить</th>
+    </tr>
+  </thead>
+  <tbody>
+  {% if transport %}
+        {% for t in transport %}
+    <tr>
+        <td>{{ t.transport }}</td>
+        <td><a class="btn btn-primary float-right" href="{% url 'transport_del' t.pk %}" role="button">Удалить</a></td>
+
+    </tr>
+  {% endfor %}
+      {% endif %}
+  </tbody>
+</table>
+
+<form method="post">
+{% csrf_token %}
+    <div class="border mb-4 mt-2 rounded border-secondary" id="feedback">
+        <div class="mt-2 ml-4 mb-3">
+            <div>
+                <p>{{ form.transport.label }}</p>
+            </div>
+            <div>
+                <p>{{ form.transport }}</p>
+            </div>
+            <div>
+                <input type="submit" value="Добавить">
+            </div>
+        </div>
+    </div>
+
+
+</form>
+
+{% endblock %}
+

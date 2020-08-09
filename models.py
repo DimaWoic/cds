@@ -2,7 +2,7 @@ from django.db import models
 
 
 class Transport(models.Model):
-    transport = models.CharField(max_length=100, verbose_name='вид транспорта', null=True, blank=False)
+    transport = models.CharField(max_length=100, verbose_name='вид транспорта', null=True, blank=False, unique=True)
 
     class Meta:
         verbose_name = 'Вид транспорта'
@@ -13,7 +13,7 @@ class Transport(models.Model):
 
 
 class Graphic(models.Model):
-    graphic = models.CharField(max_length=20, verbose_name='график', null=True, blank=False)
+    graphic = models.CharField(max_length=20, verbose_name='график', null=True, blank=False, unique=True)
 
     class Meta:
         verbose_name = 'Вид графика'
@@ -71,7 +71,7 @@ class Position(models.Model):
 class Worker(models.Model):
     name_surname = models.CharField(max_length=250, verbose_name='Ф.И.О.', null=False, blank=False)
     sex = models.ForeignKey(Sex, on_delete=models.CASCADE, verbose_name='Пол')
-    birthday = models.DateField(verbose_name='дата рождения')
+    birthday = models.CharField(max_length=50, verbose_name='дата рождения')
     working_place = models.ForeignKey(CompanyUnit, on_delete=models.CASCADE, verbose_name='место работы')
     position = models.ForeignKey(Position, on_delete=models.CASCADE, null=True, blank=True)
     address = models.CharField(max_length=1000, verbose_name='адрес', null=True, blank=True)

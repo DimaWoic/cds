@@ -19,8 +19,8 @@
     </tr>
   </thead>
   <tbody>
-  {% if position %}
-        {% for w in worker %}
+  {% if worker %}
+        {% for p in worker %}
     <tr>
         <td>{{ p.name_surname }}</td>
         <td>{{ p.sex }}</td>
@@ -29,6 +29,7 @@
         <td>{{ p.position }}</td>
         <td>{{ p.address }}</td>
         <td>{{ p.telephone }}</td>
+        <td><a class="btn btn-primary float-right" href="{% url 'del_worker' p.pk %}" role="button">Удалить</a></td>
     </tr>
   {% endfor %}
       {% endif %}

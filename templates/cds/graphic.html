@@ -1,0 +1,29 @@
+{% extends "cds/base/base.html" %}
+{% load static %}
+
+
+{% block content %}
+
+<p class="mt-2">Виды графиков</p>
+
+<table class="table table-striped table-bordered">
+  <thead class="thead-dark">
+    <tr>
+      <th scope="col">график</th>
+    </tr>
+  </thead>
+  <tbody>
+  {% if graphic %}
+        {% for g in graphic %}
+    <tr>
+        <td>{{ g.graphic }}</td>
+    </tr>
+  {% endfor %}
+      {% endif %}
+  </tbody>
+</table>
+
+<a class="btn btn-primary float-right" href="{% url 'graphic_add' %}" role="button">Редактировать</a>
+
+{% endblock %}
+

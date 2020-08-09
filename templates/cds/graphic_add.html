@@ -1,0 +1,49 @@
+{% extends "cds/base/base.html" %}
+{% load static %}
+
+
+{% block content %}
+
+<p class="mt-2">Виды графиков</p>
+
+<table class="table table-striped table-bordered">
+  <thead class="thead-dark">
+    <tr>
+      <th scope="col">График</th>
+      <th scope="col">Удалить</th>
+    </tr>
+  </thead>
+  <tbody>
+  {% if graphic %}
+        {% for g in graphic %}
+    <tr>
+        <td>{{ g.graphic }}</td>
+        <td><a class="btn btn-primary float-right" href="{% url 'graphic_del' g.pk %}" role="button">Удалить</a></td>
+
+    </tr>
+  {% endfor %}
+      {% endif %}
+  </tbody>
+</table>
+
+<form method="post">
+{% csrf_token %}
+    <div class="border mb-4 mt-2 rounded border-secondary" id="feedback">
+        <div class="mt-2 ml-4 mb-3">
+            <div>
+                <p>{{ form.graphic.label }}</p>
+            </div>
+            <div>
+                <p>{{ form.graphic }}</p>
+            </div>
+            <div>
+                <input type="submit" value="Добавить">
+            </div>
+        </div>
+    </div>
+
+
+</form>
+
+{% endblock %}
+
