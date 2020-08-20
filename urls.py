@@ -21,4 +21,5 @@ urlpatterns = [
     path('graphic/', views.GraphicIndex.as_view(), name='graphic'),
     path('add_graphic', views.CreateGraphic.as_view(), name='graphic_add'),
     path('del_graphic/<int:pk>', views.DelGraphic.as_view(), name='graphic_del'),
+    path('schedule_index', views.ScheduleIndex.as_view(), name='schedule_index'),
 ]

@@ -83,3 +83,47 @@ class Worker(models.Model):
     def __str__(self):
         return self.name_surname
 
+
+class RollingStockFormOne(models.Model):
+    depot = models.ForeignKey(CompanyUnit, on_delete=models.CASCADE, verbose_name='название депо')
+    transport = models.ForeignKey(Transport, on_delete=models.CASCADE, verbose_name='вид транспорта')
+    director = models.ForeignKey(Worker, on_delete=models.CASCADE, verbose_name='директор')
+    address = models.CharField(max_length=200, verbose_name='адрес', null=True, blank=True)
+
+    class Meta:
+        verbose_name = 'Форма 1'
+
+    def __str__(self):
+        return self.depot
+
+
+class RollingStockFormTwo(models.Model):
+    number_route = models.IntegerField(unique=True, verbose_name='номер маршрута')
+    start_point = models.CharField(max_length=250, verbose_name='Начальная точка')
+    end_point = models.CharField(max_length=250, verbose_name='Конечная точка')
+    time_route = models.IntegerField(verbose_name='Время оборотного рейса')
+    length_route = models.DecimalField(max_digits=3, decimal_places=0, verbose_name='протяжённость')
+    dep_first_car = models.TimeField(verbose_name='Выезд первого вагона')
+    arr_last_car = models.TimeField(verbose_name='Заезд последнего вагона')
+
+    class Meta:
+        verbose_name = 'Форма 2'
+
+    def __str__(self):
+        return self.number_route
+
+
+class RollingStockFormThree(models.Model):
+    start_hour_of_day = models.TimeField(verbose_name='Время суток')
+    num_car = models.DecimalField(max_digits=3, decimal_places=0, verbose_name='количество подвижного состава')
+    start_data = models.DateField(verbose_name='Начальная дата')
+    end_data = models.DateField(verbose_name='конечная дата')
+    end_hour_of_day = models.DateField(verbose_name='конечная дата')
+    route = models.DecimalField(max_digits=2, decimal_places=0, verbose_name='маршрут')
+    graphic = models.ForeignKey(Graphic, on_delete=models.CASCADE, verbose_name='график')
+
+    class Meta:
+        verbose_name = 'Форма 3'
+
+    def __str__(self):
+        return self.start_hour_of_day
