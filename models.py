@@ -142,5 +142,3 @@ class RollingStock(models.Model):
 
     def __str__(self):
         return self.route
-
-
