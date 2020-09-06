@@ -84,21 +84,34 @@ class Worker(models.Model):
         return self.name_surname
 
 
-class RollingStockFormOne(models.Model):
-    depot = models.ForeignKey(CompanyUnit, on_delete=models.CASCADE, verbose_name='название депо')
-    transport = models.ForeignKey(Transport, on_delete=models.CASCADE, verbose_name='вид транспорта')
-    director = models.ForeignKey(Worker, on_delete=models.CASCADE, verbose_name='директор')
-    address = models.CharField(max_length=200, verbose_name='адрес', null=True, blank=True)
+class Depot(models.Model):
+    transport = models.ForeignKey(Transport, verbose_name='Вид транспорта', on_delete=models.CASCADE)
+    name = models.CharField(max_length=200, verbose_name='Название депо', unique=True)
+    director = models.CharField(max_length=200, verbose_name='директор')
+    address = models.CharField(max_length=200, verbose_name='адрес', unique=True)
 
     class Meta:
-        verbose_name = 'Форма 1'
+        verbose_name = 'Название депо'
+        verbose_name_plural = 'Название депо'
 
     def __str__(self):
-        return self.depot
+        return self.name
 
 
-class RollingStockFormTwo(models.Model):
-    number_route = models.IntegerField(unique=True, verbose_name='номер маршрута')
+class Route(models.Model):
+    depot = models.ForeignKey(Depot, verbose_name='Название депо', on_delete=models.CASCADE)
+    number = models.DecimalField(max_digits=2, decimal_places=0, verbose_name='Номер маршрута')
+
+    class Meta:
+        verbose_name = 'номер маршрута'
+        verbose_name_plural = 'номера маршрутов'
+
+    def __str__(self):
+        return self.number
+
+
+class RouteParam(models.Model):
+    route = models.ForeignKey(Route, on_delete=models.CASCADE, verbose_name='Номер маршрута')
     start_point = models.CharField(max_length=250, verbose_name='Начальная точка')
     end_point = models.CharField(max_length=250, verbose_name='Конечная точка')
     time_route = models.IntegerField(verbose_name='Время оборотного рейса')
@@ -107,23 +120,27 @@ class RollingStockFormTwo(models.Model):
     arr_last_car = models.TimeField(verbose_name='Заезд последнего вагона')
 
     class Meta:
-        verbose_name = 'Форма 2'
+        verbose_name = 'Параметры маршрута'
+        verbose_name_plural = 'Параметры маршрутов'
 
     def __str__(self):
-        return self.number_route
+        return self.route
 
 
-class RollingStockFormThree(models.Model):
-    start_hour_of_day = models.TimeField(verbose_name='Время суток')
+class RollingStock(models.Model):
+    route = models.ForeignKey(Route, on_delete=models.CASCADE, verbose_name='Номер маршрута')
+    graphic = models.ForeignKey(Graphic, on_delete=models.CASCADE, verbose_name='график')
+    start_hour_of_day = models.TimeField(verbose_name='начальное время суток')
     num_car = models.DecimalField(max_digits=3, decimal_places=0, verbose_name='количество подвижного состава')
     start_data = models.DateField(verbose_name='Начальная дата')
     end_data = models.DateField(verbose_name='конечная дата')
-    end_hour_of_day = models.DateField(verbose_name='конечная дата')
-    route = models.DecimalField(max_digits=2, decimal_places=0, verbose_name='маршрут')
-    graphic = models.ForeignKey(Graphic, on_delete=models.CASCADE, verbose_name='график')
+    end_hour_of_day = models.DateField(verbose_name='конечное время суток')
 
     class Meta:
-        verbose_name = 'Форма 3'
+        verbose_name = 'расстановка подвижного состава'
+        verbose_name_plural = 'расстановки подвижного состава'
 
     def __str__(self):
-        return self.start_hour_of_day
+        return self.route
+
+

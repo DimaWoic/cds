@@ -1,6 +1,6 @@
 from django.contrib import admin
 from .models import Transport, Graphic, Company, CompanyUnit, Sex, Position, Worker
-from .models import RollingStockFormOne, RollingStockFormTwo, RollingStockFormThree
+from .models import Depot, Route, RouteParam, RollingStock
 
 
 admin.site.register(Transport)
@@ -10,6 +10,7 @@ admin.site.register(CompanyUnit)
 admin.site.register(Sex)
 admin.site.register(Position)
 admin.site.register(Worker)
-admin.site.register(RollingStockFormOne)
-admin.site.register(RollingStockFormTwo)
-admin.site.register(RollingStockFormThree)
+admin.site.register(Depot)
+admin.site.register(Route)
+admin.site.register(RouteParam)
+admin.site.register(RollingStock)

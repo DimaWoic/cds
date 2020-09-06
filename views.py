@@ -2,7 +2,7 @@ from django.shortcuts import render, render_to_response
 from .models import Company, CompanyUnit, Transport, Graphic, Worker, Position
 from django.views.generic import DeleteView, CreateView, ListView
 from django.urls import reverse_lazy
-from .models import RollingStockFormOne, RollingStockFormTwo, RollingStockFormThree
+from .models import Depot, Route, RouteParam, RollingStock
 
 
 def index(requests):
@@ -167,11 +167,13 @@ class DelWorker(DeleteView):
 class ScheduleIndex(ListView):
     template_name = 'cds/schedule_index.html'
     template_name_suffix = '_index'
-    queryset = RollingStockFormOne.objects.all()
-    context_object_name = 'form1'
+    queryset = RollingStock.objects.all()
+    context_object_name = 'rs'
 
     def get_context_data(self, *args, **kwargs):
         context = super().get_context_data(*args, **kwargs)
-        context['form2'] = RollingStockFormTwo.objects.all()
-        context['form3'] = RollingStockFormThree.objects.all()
+        context['depot'] = Depot.objects.all()
+        context['transport'] = Transport.objects.all()
+        context['route'] = Route.objecta.all()
+        context['rp'] = RouteParam.objects.all()
         return context
