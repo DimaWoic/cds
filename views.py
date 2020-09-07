@@ -2,7 +2,7 @@ from django.shortcuts import render, render_to_response
 from .models import Company, CompanyUnit, Transport, Graphic, Worker, Position
 from django.views.generic import DeleteView, CreateView, ListView
 from django.urls import reverse_lazy
-from .models import Depot, Route, RouteParam, RollingStock
+from .models import Depot, Route, RollingStock
 
 
 def index(requests):
@@ -15,6 +15,11 @@ class TransportIndex(ListView):
 
     def get_queryset(self):
         return Transport.objects.all()
+
+    def get_context_data(self, *args, **kwargs):
+        context = super().get_context_data(*args, **kwargs)
+        context['depot'] = Depot.objects.all()
+        return context
 
 
 class EditTransport(CreateView, ListView):
@@ -174,6 +179,55 @@ class ScheduleIndex(ListView):
         context = super().get_context_data(*args, **kwargs)
         context['depot'] = Depot.objects.all()
         context['transport'] = Transport.objects.all()
-        context['route'] = Route.objecta.all()
-        context['rp'] = RouteParam.objects.all()
+        context['route'] = Route.objects.all()
         return context
+
+
+class DepotIndex(ListView):
+    template_name = 'cds/depot_index.html'
+    template_name_suffix = '_index'
+    queryset = Depot.objects.all()
+    context_object_name = 'depot'
+
+
+class DepotCreate(CreateView, ListView):
+    model = Depot
+    success_url = reverse_lazy('depot_add')
+    fields = ['transport', 'name', 'director', 'address']
+    template_name_suffix = '_add'
+    context_object_name = 'depot'
+
+    def get_queryset(self):
+        return Depot.objects.all()
+
+
+class DepotDelete(DeleteView):
+    model = Depot
+    success_url = reverse_lazy('depot_add')
+    context_object_name = 'depot'
+
+
+class RouteIndex(ListView):
+    template_name = 'cds/route_index.html'
+    template_name_suffix = '_index'
+    queryset = Route.objects.all()
+    context_object_name = 'route'
+
+    def get_context_data(self, *args, **kwargs):
+        context = super().get_context_data(*args, **kwargs)
+        context['depot'] = Depot.objects.all()
+        context['transport'] = Transport.objects.all()
+        context['route'] = Route.objects.all()
+        return context
+
+
+class RouteCreate(CreateView, ListView):
+    model = Route
+    template_name_suffix = '_add'
+    fields = ['depot', 'route', 'start_point', 'end_point', 'time_route', 'length_route', 'dep_first_car_h', 'dep_first_car_m',
+              'arr_last_car_h', 'arr_last_car_m']
+    success_url = reverse_lazy('route_add')
+    context_object_name = 'route'
+
+    def get_queryset(self):
+        return Route.objects.all()

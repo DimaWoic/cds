@@ -22,4 +22,9 @@ urlpatterns = [
     path('add_graphic', views.CreateGraphic.as_view(), name='graphic_add'),
     path('del_graphic/<int:pk>', views.DelGraphic.as_view(), name='graphic_del'),
     path('schedule_index', views.ScheduleIndex.as_view(), name='schedule_index'),
+    path('depot_add', views.DepotCreate.as_view(), name='depot_add'),
+    path('depot_del/<int:pk>', views.DepotDelete.as_view(), name='depot_del'),
+    path('depot', views.DepotIndex.as_view(), name='depot'),
+    path('route', views.RouteIndex.as_view(), name='route'),
+    path('route_add', views.RouteCreate.as_view(), name='route_add'),
 ]

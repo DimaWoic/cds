@@ -6,30 +6,6 @@
 
 <p class="mt-2">Расстановка подвижного состава по часам суток</p>
 
-<table class="table table-striped table-bordered">
-  <thead class="thead-dark">
-    <tr>
-      <th scope="col">Название депо</th>
-      <th scope="col">Вид транспорта</th>
-      <th scope="col">Директор</th>
-      <th scope="col">Адрес</th>
-    </tr>
-  </thead>
-  <tbody>
-  {% if form1 %}
-        {% for f in form1 %}
-    <tr>
-        <td>{{ f.depot }}</td>
-        <td>{{ f.transport }}</td>
-        <td>{{ f.director }}</td>
-        <td>{{ f.address }}</td>
-    </tr>
-  {% endfor %}
-      {% endif %}
-  </tbody>
-</table>
-
-<a class="btn btn-primary float-right mb-4" href="#" role="button">Редактировать</a>
 
 <table class="table table-striped table-bordered mt-4">
   <thead class="thead-dark">
@@ -44,16 +20,16 @@
     </tr>
   </thead>
   <tbody>
-  {% if form2 %}
-        {% for f2 in form2 %}
+  {% if rp %}
+        {% for r in rp %}
     <tr>
-        <td>{{ f2.number_route }}</td>
-        <td>{{ f2.start_point }}</td>
-        <td>{{ f2.end_point }}</td>
-        <td>{{ f2.time_route }}</td>
-        <td>{{ f2.length_route }}</td>
-        <td>{{ f2.dep_first_car }}</td>
-        <td>{{ f2.arr_last_car }}</td>
+        <td>{{ r.number_route }}</td>
+        <td>{{ r.start_point }}</td>
+        <td>{{ r.end_point }}</td>
+        <td>{{ r.time_route }}</td>
+        <td>{{ r.length_route }}</td>
+        <td>{{ r.dep_first_car }}</td>
+        <td>{{ r.arr_last_car }}</td>
 
 
     </tr>
@@ -77,16 +53,16 @@
     </tr>
   </thead>
   <tbody>
-  {% if form3 %}
-        {% for f3 in form3 %}
+  {% if rs %}
+        {% for f in rs %}
     <tr>
-        <td>{{ f3.route }}</td>
-        <td>{{ f3.graphic }}</td>
-        <td>{{ f3.start_hour_of_day }}</td>
-        <td>{{ f3.num_car }}</td>
-        <td>{{ f3.start_data }}</td>
-        <td>{{ f3.end_data }}</td>
-        <td>{{ f3.end_hour_of_day }}</td>
+        <td>{{ f.route }}</td>
+        <td>{{ f.graphic }}</td>
+        <td>{{ f.start_hour_of_day }}</td>
+        <td>{{ f.num_car }}</td>
+        <td>{{ f.start_data }}</td>
+        <td>{{ f.end_data }}</td>
+        <td>{{ f.end_hour_of_day }}</td>
     </tr>
 
 

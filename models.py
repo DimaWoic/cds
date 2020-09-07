@@ -92,7 +92,7 @@ class Depot(models.Model):
 
     class Meta:
         verbose_name = 'Название депо'
-        verbose_name_plural = 'Название депо'
+        verbose_name_plural = 'Названия депо'
 
     def __str__(self):
         return self.name
@@ -100,28 +100,21 @@ class Depot(models.Model):
 
 class Route(models.Model):
     depot = models.ForeignKey(Depot, verbose_name='Название депо', on_delete=models.CASCADE)
-    number = models.DecimalField(max_digits=2, decimal_places=0, verbose_name='Номер маршрута')
+    route = models.DecimalField(max_digits=2, decimal_places=0, verbose_name='Номер маршрута', default=0)
+    start_point = models.CharField(max_length=250, verbose_name='Начальная точка', default='')
+    end_point = models.CharField(max_length=250, verbose_name='Конечная точка', default='')
+    time_route = models.IntegerField(verbose_name='Время оборотного рейса', default=0)
+    length_route = models.DecimalField(max_digits=3, decimal_places=0, verbose_name='протяжённость', default=0)
+    dep_first_car_h = models.DecimalField(max_digits=2, decimal_places=0, verbose_name='Выезд первого вагона часы', null=True)
+    dep_first_car_m = models.DecimalField(max_digits=2, decimal_places=0, verbose_name='Выезд первого вагона минуты',
+                                          null=True)
+    arr_last_car_h = models.DecimalField(max_digits=2, decimal_places=0, verbose_name='Заезд последнего вагона часы', null=True)
+    arr_last_car_m = models.DecimalField(max_digits=2, decimal_places=0, verbose_name='Заезд последнего вагона минуты', null=True)
+
 
     class Meta:
-        verbose_name = 'номер маршрута'
-        verbose_name_plural = 'номера маршрутов'
-
-    def __str__(self):
-        return self.number
-
-
-class RouteParam(models.Model):
-    route = models.ForeignKey(Route, on_delete=models.CASCADE, verbose_name='Номер маршрута')
-    start_point = models.CharField(max_length=250, verbose_name='Начальная точка')
-    end_point = models.CharField(max_length=250, verbose_name='Конечная точка')
-    time_route = models.IntegerField(verbose_name='Время оборотного рейса')
-    length_route = models.DecimalField(max_digits=3, decimal_places=0, verbose_name='протяжённость')
-    dep_first_car = models.TimeField(verbose_name='Выезд первого вагона')
-    arr_last_car = models.TimeField(verbose_name='Заезд последнего вагона')
-
-    class Meta:
-        verbose_name = 'Параметры маршрута'
-        verbose_name_plural = 'Параметры маршрутов'
+        verbose_name = 'Маршрут'
+        verbose_name_plural = 'Маршрут'
 
     def __str__(self):
         return self.route

@@ -1,0 +1,14 @@
+{% extends "cds/base/base.html" %}
+{% load static %}
+
+{% block content %}
+
+<div class="mt-4">
+    <p>Удалить {{ depot.name }}???</p>
+</div>
+
+<form method="post">{% csrf_token %}
+            <input type="submit" value="Удалить">
+        </form>
+
+{% endblock %}
