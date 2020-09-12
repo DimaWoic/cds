@@ -3,7 +3,9 @@ from .models import Company, CompanyUnit, Transport, Graphic, Worker, Position
 from django.views.generic import DeleteView, CreateView, ListView
 from django.urls import reverse_lazy
 from .models import Depot, Route, RollingStock
-
+from .forms import Entry
+from django.views.generic.edit import FormView
+from django.db.models import Q
 
 def index(requests):
     return render(requests, 'cds/base/base.html')
@@ -231,3 +233,9 @@ class RouteCreate(CreateView, ListView):
 
     def get_queryset(self):
         return Route.objects.all()
+
+
+class EntryForm(FormView):
+    form_class = Entry
+    template_name = 'cds/select_date.html'
+

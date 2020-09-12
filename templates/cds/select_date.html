@@ -1,0 +1,15 @@
+{% extends "cds/base/base.html" %}
+{% load static %}
+
+
+{% block content %}
+
+<form method="get">
+    {% csrf_token %}
+    {{ form.operation_date }}
+    {{ form.transport }}
+
+    <input type="submit" value="Искать">
+</form>
+
+{% endblock %}

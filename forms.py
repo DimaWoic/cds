@@ -1,8 +1,11 @@
-from django.forms import ModelForm
-from .models import Company
+from django import forms
+from django.contrib.admin.widgets import AdminDateWidget
+from .models import RollingStock
 
 
-class CompanyForm(ModelForm):
+class Entry(forms.ModelForm):
+    operation_date = forms.DateField(widget=forms.SelectDateWidget)
+
     class Meta:
-        model = Company
-        fields = ('name', 'address', 'email', 'telephone')
+        model = RollingStock
+        fields = ('transport',)

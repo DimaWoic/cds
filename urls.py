@@ -27,4 +27,5 @@ urlpatterns = [
     path('depot', views.DepotIndex.as_view(), name='depot'),
     path('route', views.RouteIndex.as_view(), name='route'),
     path('route_add', views.RouteCreate.as_view(), name='route_add'),
+    path('select_date', views.EntryForm.as_view() , name='select_date'),
 ]
