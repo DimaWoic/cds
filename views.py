@@ -235,7 +235,32 @@ class RouteCreate(CreateView, ListView):
         return Route.objects.all()
 
 
+class RollingStockCreate(CreateView, ListView):
+    model = RollingStock
+    template_name_suffix = '_add'
+    fields = ['depot', 'route', 'graphic', 'start_hour_of_day', 'num_car', 'start_data', 'end_data',
+              'end_hour_of_day', 'transport']
+    success_url = reverse_lazy('rollingstock_add')
+    context_object_name = 'rs'
+
+    def get_queryset(self):
+        return RollingStock.objects.all()
+
+
+class RSDelete(DeleteView):
+    model = RollingStock
+    success_url = reverse_lazy('rollingstock_add')
+    context_object_name = 'rs'
+
+
 class EntryForm(FormView):
     form_class = Entry
     template_name = 'cds/select_date.html'
+
+    def get_queryset(self):
+        query = self.request.GET.get('q')
+
+        if query:
+            results = RollingStock.objects.get(published__date=query)
+            return results
 

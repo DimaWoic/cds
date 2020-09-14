@@ -100,7 +100,7 @@ class Depot(models.Model):
 
 class Route(models.Model):
     depot = models.ForeignKey(Depot, verbose_name='Название депо', on_delete=models.CASCADE)
-    route = models.DecimalField(max_digits=2, decimal_places=0, verbose_name='Номер маршрута', default=0)
+    route = models.CharField(max_length=2, verbose_name='Номер маршрута', default='')
     start_point = models.CharField(max_length=250, verbose_name='Начальная точка', default='')
     end_point = models.CharField(max_length=250, verbose_name='Конечная точка', default='')
     time_route = models.IntegerField(verbose_name='Время оборотного рейса', default=0)
@@ -121,7 +121,8 @@ class Route(models.Model):
 
 
 class RollingStock(models.Model):
-    transport = models.ForeignKey(Transport, verbose_name='Вид транспорта', on_delete=models.CASCADE)
+    transport = models.ForeignKey(Transport, verbose_name='Транспорт', on_delete=models.CASCADE)
+    depot = models.ForeignKey(Depot, verbose_name='Депо', on_delete=models.CASCADE)
     route = models.ForeignKey(Route, on_delete=models.CASCADE, verbose_name='Номер маршрута')
     graphic = models.ForeignKey(Graphic, on_delete=models.CASCADE, verbose_name='график')
     start_hour_of_day = models.TimeField(verbose_name='начальное время суток')

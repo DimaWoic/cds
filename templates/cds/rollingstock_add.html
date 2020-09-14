@@ -18,6 +18,7 @@
       <th scope="col">Начальная дата</th>
       <th scope="col">Конечная дата</th>
       <th scope="col">Час суток</th>
+      <th scope="col">Действие</th>
     </tr>
   </thead>
   <tbody>
@@ -33,15 +34,33 @@
         <td>{{ f.start_data }}</td>
         <td>{{ f.end_data }}</td>
         <td>{{ f.end_hour_of_day }}</td>
+        <td><a class="btn btn-primary float-right" href="{% url 'rs_del' f.pk %}" role="button">Удалить</a></td>
     </tr>
 
 
 
   {% endfor %}
       {% endif %}
+
+  <form method="post">
+    {% csrf_token %}
+        <tr>
+            <td>{{ form.transport  }}</td>
+            <td>{{ form.depot  }}</td>
+            <td>{{ form.route }}</td>
+            <td>{{ form.graphic }}</td>
+            <td>{{ form.start_hour_of_day }}</td>
+            <td>{{ form.num_car }}</td>
+            <td>{{ form.start_data }}</td>
+            <td>{{ form.end_data }}</td>
+            <td>{{ form.end_hour_of_day }}</td>
+            <td><input type="submit" value="Добавить"></td>
+        </tr>
+    </form>
+
   </tbody>
 </table>
 
-<a class="btn btn-primary float-right" href="{% url 'rollingstock_add' %}" role="button">Редактировать</a>
+<a class="btn btn-primary float-right" href="#" role="button">Редактировать</a>
 
 {% endblock %}

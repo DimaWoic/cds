@@ -6,8 +6,8 @@
 
 <form method="get">
     {% csrf_token %}
-    {{ form.operation_date }}
-    {{ form.transport }}
+    <p>{{ form.operation_date }}</p>
+    <p>{{ form.transport }}</p>
 
     <input type="submit" value="Искать">
 </form>

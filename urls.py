@@ -28,4 +28,6 @@ urlpatterns = [
     path('route', views.RouteIndex.as_view(), name='route'),
     path('route_add', views.RouteCreate.as_view(), name='route_add'),
     path('select_date', views.EntryForm.as_view() , name='select_date'),
+    path('rollingstock_add', views.RollingStockCreate.as_view(), name='rollingstock_add'),
+    path('rs_del/<int:pk>', views.RSDelete.as_view(), name='rs_del'),
 ]
