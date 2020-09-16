@@ -257,10 +257,13 @@ class EntryForm(FormView):
     form_class = Entry
     template_name = 'cds/select_date.html'
 
+
+class DateResults(ListView):
+    model = RollingStock
+    template_name = 'cds/date_results.html'
+
     def get_queryset(self):
         query = self.request.GET.get('q')
-
-        if query:
-            results = RollingStock.objects.get(published__date=query)
-            return results
+        object_list = RollingStock.objects.filter(Q(published=query) or Q(transport=query))
+        return object_list
 

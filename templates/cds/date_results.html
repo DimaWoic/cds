@@ -1,0 +1,14 @@
+{% extends "cds/base/base.html" %}
+{% load static %}
+
+
+{% block content %}
+
+{% for obj in object_list %}
+
+{{ obj.depot }}  {{ obj.transport }}  {{ obj.route }}  {{ obj.num_car }}
+
+{% endfor %}
+
+
+{% endblock %}

@@ -4,12 +4,21 @@
 
 {% block content %}
 
-<form method="get">
-    {% csrf_token %}
-    <p>{{ form.operation_date }}</p>
-    <p>{{ form.transport }}</p>
+<div style="height: 100px">
+    <div class="">
+            <form action="{% url 'date_results' %}" method="get">
+        {% csrf_token %}
+        <p>{{ form.operation_date }}</p>
+        <p>{{ form.transport }}</p>
 
-    <input type="submit" value="Искать">
+        <input type="submit" value="Искать">
+
+
+
 </form>
+
+    </div>
+</div>
+
 
 {% endblock %}
