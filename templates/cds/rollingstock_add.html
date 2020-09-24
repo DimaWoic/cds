@@ -25,8 +25,6 @@
   {% if rs %}
         {% for f in rs %}
     <tr>
-        <td>{{ f.transport }}</td>
-        <td>{{ f.depot }}</td>
         <td>{{ f.route }}</td>
         <td>{{ f.graphic }}</td>
         <td>{{ f.start_hour_of_day }}</td>
@@ -45,8 +43,12 @@
   <form method="post">
     {% csrf_token %}
         <tr>
-            <td>{{ form.transport  }}</td>
-            <td>{{ form.depot  }}</td>
+            <td><select>
+                {% for t in transport %}
+                <option>{{ t.name }}</option>
+                {% endfor %}
+            </select></td>
+            <td>{{ depot.name }}</td>
             <td>{{ form.route }}</td>
             <td>{{ form.graphic }}</td>
             <td>{{ form.start_hour_of_day }}</td>

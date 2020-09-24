@@ -172,17 +172,10 @@ class DelWorker(DeleteView):
 
 
 class ScheduleIndex(ListView):
-    template_name = 'cds/schedule_index.html'
+    template_name = 'cds/rollingstock_index.html'
     template_name_suffix = '_index'
     queryset = RollingStock.objects.all()
     context_object_name = 'rs'
-
-    def get_context_data(self, *args, **kwargs):
-        context = super().get_context_data(*args, **kwargs)
-        context['depot'] = Depot.objects.all()
-        context['transport'] = Transport.objects.all()
-        context['route'] = Route.objects.all()
-        return context
 
 
 class DepotIndex(ListView):
@@ -235,16 +228,27 @@ class RouteCreate(CreateView, ListView):
         return Route.objects.all()
 
 
+class RouteDelete(DeleteView):
+    model = Route
+    success_url = reverse_lazy('route_add')
+    context_object_name = 'route'
+
+
 class RollingStockCreate(CreateView, ListView):
     model = RollingStock
     template_name_suffix = '_add'
-    fields = ['depot', 'route', 'graphic', 'start_hour_of_day', 'num_car', 'start_data', 'end_data',
-              'end_hour_of_day', 'transport']
+    fields = '__all__'
     success_url = reverse_lazy('rollingstock_add')
     context_object_name = 'rs'
 
     def get_queryset(self):
         return RollingStock.objects.all()
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['transport'] = Transport.objects.all()
+        context['depot'] = Depot.objects.all()
+        return context
 
 
 class RSDelete(DeleteView):

@@ -121,8 +121,6 @@ class Route(models.Model):
 
 
 class RollingStock(models.Model):
-    transport = models.ForeignKey(Transport, verbose_name='Транспорт', on_delete=models.CASCADE)
-    depot = models.ForeignKey(Depot, verbose_name='Депо', on_delete=models.CASCADE)
     route = models.ForeignKey(Route, on_delete=models.CASCADE, verbose_name='Номер маршрута')
     graphic = models.ForeignKey(Graphic, on_delete=models.CASCADE, verbose_name='график')
     start_hour_of_day = models.TimeField(verbose_name='начальное время суток')

@@ -7,4 +7,4 @@ class Entry(forms.ModelForm):
 
     class Meta:
         model = RollingStock
-        fields = ('transport',)
+        fields = '__all__'
