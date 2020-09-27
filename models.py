@@ -121,7 +121,7 @@ class RollingStock(models.Model):
     route = models.ForeignKey(Route, on_delete=models.CASCADE, verbose_name='Номер маршрута')
     graphic = models.ForeignKey(Graphic, on_delete=models.CASCADE, verbose_name='график')
     start_hour_of_day = models.TimeField(verbose_name='начальное время суток')
-    num_car = models.DecimalField(max_digits=3, decimal_places=0, verbose_name='количество подвижного состава')
+    num_car = models.IntegerField(verbose_name='количество подвижного состава')
     start_data = models.DateField(verbose_name='Начальная дата')
     end_data = models.DateField(verbose_name='конечная дата')
     end_hour_of_day = models.TimeField(verbose_name='конечное время суток')
@@ -132,4 +132,5 @@ class RollingStock(models.Model):
         verbose_name_plural = 'расстановки подвижного состава'
 
     def __str__(self):
-        return self.route
+        obj = self.route.__str__()
+        return obj

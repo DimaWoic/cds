@@ -7,11 +7,11 @@ class Entry(forms.ModelForm):
 
 
 class RsForm(forms.ModelForm):
-    start_hour_of_day = forms.TimeField(input_formats='%H:%M', widget=forms.TimeInput(format='%H:%M'))
-    num_car = forms.DecimalField()
-    start_data = forms.DateField(input_formats='%d.%m.%Y', widget=forms.SelectDateWidget)
-    end_data = forms.DateField(input_formats='%d.%m.%Y', widget=forms.SelectDateWidget)
-    end_hour_of_day = forms.TimeField(input_formats='%H:%M', widget=forms.TimeInput(format='%H:%M'))
+    start_hour_of_day = forms.TimeField(widget=forms.TimeInput)
+    num_car = forms.IntegerField()
+    start_data = forms.DateField(widget=forms.SelectDateWidget)
+    end_data = forms.DateField(widget=forms.SelectDateWidget)
+    end_hour_of_day = forms.TimeField(widget=forms.TimeInput)
 
     class Meta:
         model = RollingStock
@@ -19,7 +19,7 @@ class RsForm(forms.ModelForm):
 
 
 class RouteForm(forms.ModelForm):
-    first_car = forms.TimeField(widget=forms.TimeInput(), input_formats='%H:%M')
+    first_car = forms.TimeField(widget=forms.TimeInput())
     last_car = forms.TimeField(widget=forms.TimeInput())
 
     class Meta:

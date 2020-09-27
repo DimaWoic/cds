@@ -216,10 +216,8 @@ class RouteCreate(CreateView, ListView):
     success_url = reverse_lazy('route')
     context_object_name = 'route'
 
-
     def get_queryset(self):
         return Route.objects.all()
-
 
 
 class RouteDelete(DeleteView):
@@ -228,17 +226,15 @@ class RouteDelete(DeleteView):
     context_object_name = 'route'
 
 
-class RollingStockCreate(FormView, ListView):
+class RollingStockCreate(CreateView, ListView):
+    model = RollingStock
     form_class = RsForm
-    template_name ='cds/rollingstock_add.html'
+    template_name_suffix ='_add'
     success_url = reverse_lazy('rollingstock_add')
-    queryset = RollingStock.objects.all()
+    context_object_name = 'rs'
 
-
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context['rs'] = RollingStock.objects.all()
-        return context
+    def get_queryset(self):
+        return RollingStock.objects.all()
 
 
 class RSDelete(DeleteView):
