@@ -3,7 +3,7 @@ from .models import Company, CompanyUnit, Transport, Graphic, Worker, Position
 from django.views.generic import DeleteView, CreateView, ListView
 from django.urls import reverse_lazy
 from .models import Depot, Route, RollingStock
-from .forms import Entry
+from .forms import Entry, RsForm, RouteForm
 from django.views.generic.edit import FormView
 from django.db.models import Q
 
@@ -208,24 +208,18 @@ class RouteIndex(ListView):
     queryset = Route.objects.all()
     context_object_name = 'route'
 
-    def get_context_data(self, *args, **kwargs):
-        context = super().get_context_data(*args, **kwargs)
-        context['depot'] = Depot.objects.all()
-        context['transport'] = Transport.objects.all()
-        context['route'] = Route.objects.all()
-        return context
-
 
 class RouteCreate(CreateView, ListView):
     model = Route
+    form_class = RouteForm
     template_name_suffix = '_add'
-    fields = ['depot', 'route', 'start_point', 'end_point', 'time_route', 'length_route', 'dep_first_car_h', 'dep_first_car_m',
-              'arr_last_car_h', 'arr_last_car_m']
-    success_url = reverse_lazy('route_add')
+    success_url = reverse_lazy('route')
     context_object_name = 'route'
+
 
     def get_queryset(self):
         return Route.objects.all()
+
 
 
 class RouteDelete(DeleteView):
@@ -234,20 +228,16 @@ class RouteDelete(DeleteView):
     context_object_name = 'route'
 
 
-class RollingStockCreate(CreateView, ListView):
-    model = RollingStock
-    template_name_suffix = '_add'
-    fields = '__all__'
+class RollingStockCreate(FormView, ListView):
+    form_class = RsForm
+    template_name ='cds/rollingstock_add.html'
     success_url = reverse_lazy('rollingstock_add')
-    context_object_name = 'rs'
+    queryset = RollingStock.objects.all()
 
-    def get_queryset(self):
-        return RollingStock.objects.all()
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['transport'] = Transport.objects.all()
-        context['depot'] = Depot.objects.all()
+        context['rs'] = RollingStock.objects.all()
         return context
 
 

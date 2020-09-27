@@ -99,17 +99,13 @@ class Depot(models.Model):
 
 
 class Route(models.Model):
-    depot = models.ForeignKey(Depot, verbose_name='Название депо', on_delete=models.CASCADE)
-    route = models.CharField(max_length=2, verbose_name='Номер маршрута', default='')
-    start_point = models.CharField(max_length=250, verbose_name='Начальная точка', default='')
-    end_point = models.CharField(max_length=250, verbose_name='Конечная точка', default='')
-    time_route = models.IntegerField(verbose_name='Время оборотного рейса', default=0)
-    length_route = models.DecimalField(max_digits=3, decimal_places=0, verbose_name='протяжённость', default=0)
-    dep_first_car_h = models.DecimalField(max_digits=2, decimal_places=0, verbose_name='Выезд первого вагона часы', null=True)
-    dep_first_car_m = models.DecimalField(max_digits=2, decimal_places=0, verbose_name='Выезд первого вагона минуты',
-                                          null=True)
-    arr_last_car_h = models.DecimalField(max_digits=2, decimal_places=0, verbose_name='Заезд последнего вагона часы', null=True)
-    arr_last_car_m = models.DecimalField(max_digits=2, decimal_places=0, verbose_name='Заезд последнего вагона минуты', null=True)
+    num_route = models.CharField(max_length=2, verbose_name='Номер маршрута')
+    start_point = models.CharField(max_length=250, verbose_name='Начальная точка')
+    end_point = models.CharField(max_length=250, verbose_name='Конечная точка')
+    time_route = models.IntegerField(verbose_name='Время оборотного рейса')
+    length_route = models.IntegerField(verbose_name='протяжённость')
+    first_car = models.TimeField(verbose_name='Выезд первого вагона часы')
+    last_car = models.TimeField(verbose_name='Заезд последнего вагона часы')
 
 
     class Meta:
@@ -117,10 +113,11 @@ class Route(models.Model):
         verbose_name_plural = 'Маршрут'
 
     def __str__(self):
-        return self.route
+        return self.num_route
 
 
 class RollingStock(models.Model):
+    depot = models.ForeignKey(Depot, verbose_name='Название депо', on_delete=models.CASCADE)
     route = models.ForeignKey(Route, on_delete=models.CASCADE, verbose_name='Номер маршрута')
     graphic = models.ForeignKey(Graphic, on_delete=models.CASCADE, verbose_name='график')
     start_hour_of_day = models.TimeField(verbose_name='начальное время суток')

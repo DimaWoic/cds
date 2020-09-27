@@ -9,7 +9,6 @@
 <table class="table table-striped table-bordered mt-4">
   <thead class="thead-dark">
     <tr>
-      <th scope="col">Транспорт</th>
       <th scope="col">Депо</th>
       <th scope="col">Маршрут</th>
       <th scope="col">День графика</th>
@@ -43,12 +42,7 @@
   <form method="post">
     {% csrf_token %}
         <tr>
-            <td><select>
-                {% for t in transport %}
-                <option>{{ t.name }}</option>
-                {% endfor %}
-            </select></td>
-            <td>{{ depot.name }}</td>
+            <td>{{ form.depot }}</td>
             <td>{{ form.route }}</td>
             <td>{{ form.graphic }}</td>
             <td>{{ form.start_hour_of_day }}</td>
